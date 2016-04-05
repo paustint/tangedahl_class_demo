@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Class Demo</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="app.css">
+
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+</head>
+<body ng-app="ClassDemo" ng-controller="appController">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Class Demo</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <h1>Session Attendance</h1>
+      <p class="lead">Please enter your information to log that you attended this help session.</p>
+
+      <form class="form-horizontal my-form" name="studentForm">
+        <div class="row">
+        <div ng-hide="studentForm.$valid"><span class="label label-danger">All fields must be entered and the email address must be in a valid format.</span></div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input type="text" class="form-control" id="firstName" ng-model="attendee.FirstName" placeholder="First Name" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" class="form-control" id="lastName" ng-model="attendee.LastName" placeholder="Last Name" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="studentId">Student Id</label>
+              <input type="text" class="form-control" id="studentId" ng-model="attendee.StudentID" placeholder="Student Id" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" class="form-control" id="email" ng-model="attendee.EmailAddress" placeholder="Email" required>
+            </div>
+            <div class="row">
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-primary" ng-disabled="!studentForm.$valid" ng-click="addStudent(attendee)">Submit</button>
+              </div>
+              <div class="col-md-10">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="alert" ng-show="notification" ng-class="{'alert-success': success, 'alert-danger': !success}" role="alert">{{notification}}</div>
+          </div>
+        </div>
+      </form>
+
+
+        <div class="row" ng-show="attendees">
+          <div class="col-md-8">
+            <div class="panel panel-primary">
+              <!-- Default panel contents -->
+              <div class="panel-heading">Registered Students</div>
+              <div class="panel-body">
+              </div>
+
+            <table class="table table-striped">
+              <thead>
+                <td>Name</td>
+                <td>Student Id</td>
+                <td>Email</td>
+                <td>Date/Time Registered</td>
+              </thead>
+              <tbody>
+                <tr ng-repeat="a in attendees | orderBy:'-CreatedOnDate'">
+                  <td>{{a.LastName}}, {{a.FirstName}}</td>
+                  <td>{{a.LastName}}</td>
+                  <td>{{a.StudentID}}</td>
+                  <td>{{a.CreatedOnDate | date: 'medium'}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+            <div class="panel-footer">{{attendees.length}} attendees registered </div>
+            </div>
+          </div>
+        </div>
+
+    <div><a href="http://mailinator.com/inbox2.jsp?public_to=attendee_test#/#public_maildirdiv">All registration email sent to mailinator</a></div>
+    </div><!-- /.container -->
+  </body>
+
+  <script src="/angular/angular.js"></script>
+  <script src="client.js"></script>
+
+</html>
